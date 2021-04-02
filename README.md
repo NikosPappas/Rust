@@ -1,2 +1,2 @@
 # Rust
-Simple programms for learning RUST
+Simple programs for learning RUST
