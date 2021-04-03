@@ -1,0 +1,34 @@
+use std::io;
+fn main() {
+    const N:usize=3;
+    const M:usize=3;
+    let mut table:[[i32;M];N]=[[0;M];N];
+    let mut i:usize;
+    let mut j:usize;
+    let mut user_input;
+    let mut sum_of_first_row:i32=0;
+    let mut sum_of_last_col:i32=0;
+    let mut sum_of_last_row:i32=0; 
+    let mut sum_of_first_col:i32=0;
+    for i in 0..N{
+       for j in 0..M{
+         println!("Type a number please:");
+         user_input = String::new();
+         io::stdin()
+            .read_line(&mut user_input)
+            .expect("Failed to read line");
+         let user_input: i32=user_input.trim().parse().expect("Type a number please");
+         table[i][j]=user_input;
+       }
+    }
+   for i in 0..N{
+     sum_of_first_row=sum_of_first_row+table[0][i];
+     sum_of_first_col=sum_of_first_col+table[i][0];
+     sum_of_last_row=sum_of_last_row+table[N-1][i];
+     sum_of_last_col=sum_of_last_col+table[i][N-1];
+   }
+  println!("The sum of the row is: {} ",sum_of_first_row);
+  println!("The sum of the last row is: {} ",sum_of_last_row);
+  println!("The sum of the first column is: {}",sum_of_first_col);
+  println!("The sum of the last column is: {}",sum_of_last_col);
+}
