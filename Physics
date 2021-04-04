@@ -1,0 +1,40 @@
+use std::io;
+use rand::Rng;
+
+fn main() {
+    let mut r;
+    let mut x:f64=0.0f64;
+    let mut y:f64=0.0f64;
+    let time:f64;
+    println!("Type the radius please: "); 
+    r=String::new();
+    io::stdin()
+       .read_line(&mut r)
+       .expect("Failed to read line");
+    let r: f64 = r.trim().parse().expect("Type a number please");
+    particle(r,x,y);
+}
+fn particle(mut r:f64,mut x:f64,mut y: f64) -> f64{
+    let mut  k=rand::thread_rng().gen_range(0,5) as f64;
+    if k==0.0 {
+     y=y+1.0;
+     println!("The particle is moving RIGHT");
+    }
+    else if k==1.0{ 
+     y=y-1.0;
+     println!("The particle is moving LEFT");
+    }
+    else if k==2.0{
+     x=x+1.0; 
+     println!("The particle is moving UP");
+    }
+    else{  
+     println!("The particle is moving DOWN");
+    }
+    println!("({},{})",x,y);
+    if x*x+y*y > r*r {
+     println!("The particle is out of the radius");
+    return 1.0;
+    }
+    return 1.0+particle(r,x,y);
+}
