@@ -1,0 +1,96 @@
+use std::io;
+struct Vector{
+   x:f64,
+   y:f64,
+   z:f64,
+}
+impl Vector{
+
+ fn print_vector(&self){
+  println!("({},{},{})",(*self).x,(*self).y,(*self).z);
+ }
+ fn vector_addition(v1:&mut Vector,v2:&mut Vector)->Vector{
+   let mut add=Vector{x:0.0,y:0.0,z:0.0,};
+
+   add.x=(*v1).x+(*v2).x;
+   add.y=(*v1).y+(*v2).y;
+   add.z=(*v1).z+(*v2).z;
+   return add;
+ }//end of function add
+ fn distance_between_two_vectors(v1:&Vector,v2:&Vector)->f64{
+   let distance:f64=(f64::powf((*v2).x-(*v1).x,2.00)+f64::powf((*v2).y-(*v1).y,2.00)+f64::powf((*v2).z-(*v1).z,2.00)).sqrt();
+   return distance;
+ }
+ fn vector_substraction(v1:&mut Vector,v2:&mut Vector)->Vector{
+  let mut sub=Vector{x:0.0,y:0.0,z:0.0};
+  sub.x=(*v2).x-(*v1).x;
+  sub.y=(*v2).y-(*v1).y;
+  sub.z=(*v2).z-(*v1).z;
+  return sub;
+ }
+fn dot_product(v1:&mut Vector,v2:&mut Vector)->f64{
+  let mut dp:f64=0.0f64;
+  dp=(*v1).x*(*v2).x+(*v1).y*(*v2).y+(*v1).z*(*v2).z;
+  return dp;
+}
+fn cross_product(v1:&mut Vector,v2:&mut Vector)->Vector{
+  let mut cross:Vector=Vector{x:0.0,
+                              y:0.0,
+                              z:0.0
+                              };
+  cross.x=(*v1).y*(*v2).z-(*v1).z*(*v2).y;
+  cross.y=(*v1).x*(*v2).z-(*v1).z*(*v2).x;
+  cross.z=(*v1).x*(*v2).y-(*v1).y*(*v2).x;
+  return cross;
+}
+fn scalar_multiplication(v: &mut Vector,c:f64){
+  (*v).x=(*v).x*c;
+  (*v).y=(*v).y*c;
+  (*v).z=(*v).z*c;
+ 
+}
+fn vector_magnitude(v: &mut Vector)->f64{
+   return (f64::powf((*v).x,2.00)+f64::powf((*v).y,2.00)+f64::powf((*v).z,2.0)).sqrt();
+}
+fn print_angle(v: &mut Vector,z: &mut Vector){
+  let sintheta:f64=(Vector::dot_product(v,z)/(Vector::vector_magnitude(v)*Vector::vector_magnitude(z)));
+  println!("The angle is {} radians",sintheta.cos().acos());
+}                          
+}//end fo impl Vector
+
+fn main(){
+  let mut v:Vector=Vector{
+                     x:1.0,
+                     y:2.0,
+                     z:3.0};
+  let mut z:Vector=Vector{
+                     x:2.0,
+                     y:4.0,
+                     z:5.0};
+  v.print_vector();
+  z.print_vector();
+  println!("Adding the above vectors");
+  let add:Vector=Vector::vector_addition(&mut v,&mut z);
+  add.print_vector();
+  println!("Substracting the above vectors");
+  let sub:Vector=Vector::vector_substraction(&mut v,&mut z);
+  sub.print_vector();
+  print!("The distance is {} ",Vector::distance_between_two_vectors(&v,&z));
+  println!();
+  println!("The dot product is {}",Vector::dot_product(&mut v,&mut z));
+  let cross_product=Vector::cross_product(&mut v,&mut z);
+  print!("The cross product is");
+  cross_product.print_vector();
+  let mut _user_input;
+  println!("Type the scalar that will be multiplied with the vector: ");
+ _user_input=String::new();
+  io::stdin()
+     .read_line(&mut _user_input)
+     .expect("Failed to read line");
+  let _user_input: f64=_user_input.trim().parse().expect("Type a number please");
+  Vector::scalar_multiplication(&mut v,_user_input);
+  Vector::scalar_multiplication(&mut z,_user_input);
+  v.print_vector();
+  z.print_vector(); 
+  Vector::print_angle(&mut v,&mut z); 
+}//end of function main
