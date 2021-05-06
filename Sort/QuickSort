@@ -25,6 +25,7 @@ fn partition(a:&mut [i32],start:usize,end:usize)->i32{
        }
       _j+=1;
   }
+  _i+=1;
   swap(a,_i,_j);
   return _i as i32;
 }
