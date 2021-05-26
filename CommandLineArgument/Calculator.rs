@@ -27,7 +27,7 @@ fn main() {
      }
      else{
        println!("Error!Exiting program.");
-       std::process::exit(0);
+       std::process::exit(1);
      }
      
 }
